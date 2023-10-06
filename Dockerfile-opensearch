@@ -1,0 +1,7 @@
+FROM opensearchproject/opensearch:2.5.0
+
+# Copy configuration files if any (consider replacing with your specific configurations)
+# COPY opensearch.yml /usr/share/opensearch/config/
+
+# Expose ports for OpenSearch
+EXPOSE 9200 9300

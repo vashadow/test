@@ -1,0 +1,7 @@
+FROM opensearchproject/opensearch-dashboards:2.5.0
+
+# Copy configuration files if any (consider replacing with your specific configurations)
+# COPY opensearch_dashboards.yml /usr/share/opensearch-dashboards/config/
+
+# Expose ports for OpenSearch Dashboards
+EXPOSE 5601

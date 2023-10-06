@@ -1,0 +1,38 @@
+version: '3'
+services:
+  opensearch:
+    image: vashadow/opensearch-test:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile-opensearch # Reference to your OpenSearch Dockerfile
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true # lock the memory
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - opensearch-network
+
+  opensearch-dashboards:
+    image: vashadow/opensearchdash-test:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile-dashboards # Reference to your OpenSearch Dashboards Dockerfile
+    ports:
+      - "5601:5601"
+    environment:
+      - OPENSEARCH_HOSTS=https://opensearch:9200 # This is crucial to ensure it connects to OpenSearch
+    depends_on:
+      - opensearch
+    networks:
+      - opensearch-network
+
+networks:
+  opensearch-network:
+    driver: bridge
+
